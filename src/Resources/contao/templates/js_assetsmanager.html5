@@ -1,0 +1,33 @@
+<?php $objAssetsManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance(); ?>
+<script defer>
+    document.addEventListener( 'DOMContentLoaded', function() {
+        var objVueScript = document.createElement('script');
+        objVueScript.id = 'js_assetsmanager';
+        objVueScript.async = true;
+        objVueScript.onload = function () {
+            new Vue({
+                el: '#wrapper',
+                methods: {
+                    onChange: function ( component ) {
+                        if ( !this.$children.length ) {
+                            return null;
+                        }
+                        for ( var i = 0; i < this.$children.length; i++ ) {
+                            if ( component === this.$children[i] ) {
+                                continue;
+                            }
+                            if ( component.$vnode.tag === this.$children[i].$vnode.tag ) {
+                                continue;
+                            }
+                            if ( typeof this.$children[i].onChange !== 'undefined' ) {
+                                this.$children[i].onChange();
+                            }
+                        }
+                    }
+                }
+            });
+        };
+        objVueScript.src = '<?= $objAssetsManager->getCombinedAssets() ?>';
+        document.head.appendChild( objVueScript );
+    });
+</script>
