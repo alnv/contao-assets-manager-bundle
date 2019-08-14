@@ -6,7 +6,7 @@
         objVueScript.async = true;
         objVueScript.onload = function () {
             new Vue({
-                el: '#wrapper',
+                el: '#application',
                 methods: {
                     onChange: function ( component ) {
                         if ( !this.$children.length ) {
