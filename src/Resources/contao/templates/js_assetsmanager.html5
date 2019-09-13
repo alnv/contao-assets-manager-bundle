@@ -5,27 +5,38 @@
         objVueScript.id = 'js_assetsmanager';
         objVueScript.async = true;
         objVueScript.onload = function () {
-            new Vue({
-                el: '#application',
-                methods: {
-                    onChange: function ( component ) {
-                        if ( !this.$children.length ) {
-                            return null;
+            var objData = {
+                options: {}
+            };
+            var arrVues = document.querySelectorAll('._vue');
+            if ( arrVues.length ) {
+                for ( var i = 0; i < arrVues.length; i++ ) {
+                    new Vue({
+                        el: arrVues[i],
+                        data: function () {
+                            return objData;
+                        },
+                        methods: {
+                            onChange: function ( component ) {
+                                if ( !this.$children.length ) {
+                                    return null;
+                                }
+                                for ( var i = 0; i < this.$children.length; i++ ) {
+                                    if ( component === this.$children[i] ) {
+                                        continue;
+                                    }
+                                    if ( component.$vnode.tag === this.$children[i].$vnode.tag ) {
+                                        continue;
+                                    }
+                                    if ( typeof this.$children[i].onChange !== 'undefined' ) {
+                                        this.$children[i].onChange();
+                                    }
+                                }
+                            }
                         }
-                        for ( var i = 0; i < this.$children.length; i++ ) {
-                            if ( component === this.$children[i] ) {
-                                continue;
-                            }
-                            if ( component.$vnode.tag === this.$children[i].$vnode.tag ) {
-                                continue;
-                            }
-                            if ( typeof this.$children[i].onChange !== 'undefined' ) {
-                                this.$children[i].onChange();
-                            }
-                        }
-                    }
+                    });
                 }
-            });
+            }
         };
         objVueScript.src = '<?= $objAssetsManager->getCombinedAssets() ?>';
         document.head.appendChild( objVueScript );
