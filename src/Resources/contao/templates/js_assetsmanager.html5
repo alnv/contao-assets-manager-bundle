@@ -6,35 +6,38 @@
         objVueScript.async = true;
         objVueScript.onload = function () {
             var objData = {
-                options: {}
+                total: 0,
+                shared: {},
+                perProduct: 0
             };
-            var arrVues = document.querySelectorAll('._vue');
-            if ( arrVues.length ) {
-                for ( var i = 0; i < arrVues.length; i++ ) {
-                    new Vue({
-                        el: arrVues[i],
+            var objVueInstances = [];
+            var arrVuesDocuments = document.querySelectorAll('.v-component');
+            if ( arrVuesDocuments.length ) {
+                for ( var i = 0; i < arrVuesDocuments.length; i++ ) {
+                    var objVue = new Vue({
+                        el: arrVuesDocuments[i],
                         data: function () {
                             return objData;
                         },
                         methods: {
                             onChange: function ( component ) {
-                                if ( !this.$children.length ) {
-                                    return null;
-                                }
-                                for ( var i = 0; i < this.$children.length; i++ ) {
-                                    if ( component === this.$children[i] ) {
+                                for ( var i = 0; i < objVueInstances.length; i++ ) {
+                                    if ( !objVueInstances[i].$children.length ) {
                                         continue;
                                     }
-                                    if ( component.$vnode.tag === this.$children[i].$vnode.tag ) {
-                                        continue;
-                                    }
-                                    if ( typeof this.$children[i].onChange !== 'undefined' ) {
-                                        this.$children[i].onChange();
+                                    for ( var j = 0; j < objVueInstances[i].$children.length; j++ ) {
+                                        if ( component.$vnode.tag === objVueInstances[i].$children[j].$vnode.tag ) {
+                                            continue;
+                                        }
+                                        if ( typeof objVueInstances[i].$children[j].onChange !== 'undefined' ) {
+                                            objVueInstances[i].$children[j].onChange();
+                                        }
                                     }
                                 }
                             }
                         }
                     });
+                    objVueInstances.push( objVue );
                 }
             }
         };
