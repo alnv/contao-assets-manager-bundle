@@ -26,11 +26,11 @@
                                         continue;
                                     }
                                     for ( var j = 0; j < objVueInstances[i].$children.length; j++ ) {
-                                        if ( component.$vnode.tag === objVueInstances[i].$children[j].$vnode.tag ) {
+                                        if ( component && component.$vnode.tag === objVueInstances[i].$children[j].$vnode.tag ) {
                                             continue;
                                         }
                                         if ( typeof objVueInstances[i].$children[j].onChange !== 'undefined' ) {
-                                            objVueInstances[i].$children[j].onChange();
+                                            objVueInstances[i].$children[j].onChange( this.shared );
                                         }
                                     }
                                 }
