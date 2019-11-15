@@ -1,3 +1,4 @@
+<?php $GLOBALS['TL_CSS']['v-component'] = 'bundles/alnvcontaoassetsmanager/css/v-component.css|static'; ?>
 <?php $objAssetsManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance(); ?>
 <script defer>
     document.addEventListener( 'DOMContentLoaded', function() {
@@ -35,6 +36,9 @@
                                     }
                                 }
                             }
+                        },
+                        mounted: function () {
+                            this.$el.classList.add('loaded');
                         }
                     });
                     objVueInstances.push( objVue );
