@@ -38,7 +38,9 @@
                             }
                         },
                         mounted: function () {
-                            this.$el.classList.add('loaded');
+                            if ( this.$el.hasOwnProperty('add') ) {
+                                this.$el.classList.add('loaded');
+                            }
                         }
                     });
                     objVueInstances.push( objVue );
