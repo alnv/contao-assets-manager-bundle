@@ -1,7 +1,7 @@
 <?php
 
 $objThemeManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance();
-if ( \System::getContainer()->get( 'request_stack' )->getCurrentRequest()->get('_scope') == 'backend' ) {
+if ( TL_MODE == 'BE' ) {
     $objThemeManager->addIfNotExist( 'bundles/alnvcontaoassetsmanager/js/libraries/core.js' );
 }
 $objThemeManager->addIfNotExist( 'bundles/alnvcontaoassetsmanager/js/libraries/vue/vue.min.js' );

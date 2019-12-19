@@ -1,50 +1,57 @@
 <?php $GLOBALS['TL_CSS']['v-component'] = 'bundles/alnvcontaoassetsmanager/css/v-component.css|static'; ?>
 <?php $objAssetsManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance(); ?>
 <script defer>
+    window.VueInstances = [];
+    window.VueData = {
+        total: 0,
+        shared: {
+            units: 1
+        },
+        perProduct: 0,
+        timeout: null
+    };
+    window.addVueInstance = function(vueComponent) {
+        var objVue = new Vue({
+            el: vueComponent,
+            data: function () {
+                return window.VueData;
+            },
+            methods: {
+                onChange: function ( component ) {
+                    for ( var i = 0; i < window.VueInstances.length; i++ ) {
+                        if ( !window.VueInstances[i].$children.length ) {
+                            continue;
+                        }
+                        for ( var j = 0; j < window.VueInstances[i].$children.length; j++ ) {
+                            if ( component && component.$vnode.tag === window.VueInstances[i].$children[j].$vnode.tag ) {
+                                continue;
+                            }
+                            if ( typeof window.VueInstances[i].$children[j].onChange !== 'undefined' ) {
+                                window.VueInstances[i].$children[j].onChange( this.shared );
+                            }
+                        }
+                    }
+                }
+            },
+            mounted: function () {
+                if ( this.$el.hasOwnProperty('add') ) {
+                    this.$el.classList.add('loaded');
+                }
+            }
+        });
+        window.VueInstances.push( objVue );
+    };
     document.addEventListener( 'DOMContentLoaded', function() {
         var objVueScript = document.createElement('script');
         objVueScript.id = 'js_assetsmanager';
         objVueScript.async = true;
         objVueScript.onload = function () {
-            var objData = {
-                total: 0,
-                shared: {},
-                perProduct: 0
-            };
-            var objVueInstances = [];
             var arrVuesDocuments = document.querySelectorAll('.v-component');
-            if ( arrVuesDocuments.length ) {
-                for ( var i = 0; i < arrVuesDocuments.length; i++ ) {
-                    var objVue = new Vue({
-                        el: arrVuesDocuments[i],
-                        data: function () {
-                            return objData;
-                        },
-                        methods: {
-                            onChange: function ( component ) {
-                                for ( var i = 0; i < objVueInstances.length; i++ ) {
-                                    if ( !objVueInstances[i].$children.length ) {
-                                        continue;
-                                    }
-                                    for ( var j = 0; j < objVueInstances[i].$children.length; j++ ) {
-                                        if ( component && component.$vnode.tag === objVueInstances[i].$children[j].$vnode.tag ) {
-                                            continue;
-                                        }
-                                        if ( typeof objVueInstances[i].$children[j].onChange !== 'undefined' ) {
-                                            objVueInstances[i].$children[j].onChange( this.shared );
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        mounted: function () {
-                            if ( this.$el.hasOwnProperty('add') ) {
-                                this.$el.classList.add('loaded');
-                            }
-                        }
-                    });
-                    objVueInstances.push( objVue );
-                }
+            if ( !arrVuesDocuments.length ) {
+                return null;
+            }
+            for ( var i = 0; i < arrVuesDocuments.length; i++ ) {
+                window.addVueInstance(arrVuesDocuments[i]);
             }
         };
         objVueScript.src = '<?= $objAssetsManager->getCombinedAssets() ?>';
