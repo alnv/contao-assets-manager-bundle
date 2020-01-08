@@ -5,7 +5,8 @@
     window.VueData = {
         total: 0,
         shared: {
-            units: 1
+            units: 1,
+            item: null
         },
         perProduct: 0,
         timeout: null
