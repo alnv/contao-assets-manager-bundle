@@ -6,7 +6,8 @@
         total: 0,
         shared: {
             units: 1,
-            item: null
+            item: null, // @todo add complete master object
+            cartActive: false
         },
         perProduct: 0,
         timeout: null
