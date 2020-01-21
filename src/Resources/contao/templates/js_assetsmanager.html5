@@ -4,10 +4,10 @@
     window.VueInstances = [];
     window.VueData = {
         total: 0,
+        cartActive: false,
         shared: {
             units: 1,
-            item: null, // @todo add complete master object
-            cartActive: false
+            item: null // @todo add complete master object
         },
         perProduct: 0,
         timeout: null
