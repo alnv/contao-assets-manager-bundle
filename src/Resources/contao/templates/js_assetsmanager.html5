@@ -5,6 +5,13 @@
     window.VueData = {
         total: 0,
         cartActive: false,
+        cartClickTrigger: false,
+        alert: {
+            component: null,
+            message: null,
+            type: null,
+            active: false
+        },
         shared: {
             units: 1,
             item: null // @todo add complete master object
@@ -33,6 +40,24 @@
                             }
                         }
                     }
+                },
+                setLoadingAlert: function(message,component) {
+                    this.alert.active = true;
+                    this.alert.type = 'loading';
+                    this.alert.component = component ? component.$vnode.tag : null;
+                    this.alert.message = message ? message : 'Bitte warten';
+                },
+                setErrorAlert: function(message,component) {
+                    this.alert.active = true;
+                    this.alert.type = 'error';
+                    this.alert.component = component ? component.$vnode.tag : null;
+                    this.alert.message = message ? message : 'Es ist ein Fehler aufgetreten';
+                },
+                clearAlert: function() {
+                    this.alert.type = null;
+                    this.alert.message = '';
+                    this.alert.active = false;
+                    this.alert.component = null;
                 }
             },
             mounted: function () {
