@@ -61,9 +61,7 @@
                 }
             },
             mounted: function () {
-                if ( this.$el.hasOwnProperty('add') ) {
-                    this.$el.classList.add('loaded');
-                }
+                this.$el.classList.add('loaded');
             }
         });
         window.VueInstances.push( objVue );
