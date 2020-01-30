@@ -21,7 +21,7 @@ const AlertComponent = Vue.component( 'alert', {
             if ( this.alert.type === 'error' ) {
                 this.$parent.clearAlert();
                 if (this.timeoutId) {
-                    clearTimeout(this.timeoutId);
+                    this.timeoutId = null;
                 }
             }
         }
@@ -32,7 +32,7 @@ const AlertComponent = Vue.component( 'alert', {
                 if ( alert.type === 'error' && !this.timeoutId ) {
                     this.timeoutId = setTimeout(function () {
                         this.$parent.clearAlert();
-                        clearTimeout(this.timeoutId);
+                        this.timeoutId = null;
                     }.bind(this),1000)
                 }
             },
