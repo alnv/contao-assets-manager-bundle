@@ -1,0 +1,96 @@
+.v-component {
+    opacity: 0;
+}
+.v-component.loaded {
+    animation-delay: 50ms;
+    animation-duration: 250ms;
+    animation-name: fadIn;
+    animation-fill-mode: forwards;
+}
+.alert-component {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background: rgba(255,255,255,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .alert-container {
+        width: 90%;
+        height: 90%;
+        padding: .5em;
+        max-width: 275px;
+        max-height: 200px;
+        background: #fff;
+        border: 1px solid rgba(13, 11, 4, 0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        p {
+            margin: 0;
+            font-size: .85rem;
+            font-family: 'Barlow-Bold', "Helvetica Neue", sans-serif;
+            @media only screen and (min-width: 411px) {
+                font-size: 1rem;
+            }
+        }
+        .loading-component {
+            width: 100%;
+            display: flex;
+            min-height: 150px;
+            align-items: center;
+        }
+    }
+    &.error {
+        .alert-container {
+            .loading-component {
+                span,
+                div {
+                    color: tomato !important;
+                    background: tomato !important;
+                }
+            }
+            p {
+                color: tomato;
+            }
+        }
+    }
+}
+.v-component.loaded.alert {
+    opacity: 1;
+    animation-name: none;
+}
+@keyframes fadIn {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+@-webkit-keyframes loading {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+@keyframes loading {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
