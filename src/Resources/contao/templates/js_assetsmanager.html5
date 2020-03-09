@@ -14,7 +14,7 @@
         },
         shared: {
             units: 1,
-            item: null // @todo add complete master object
+            item: "<?= ($GLOBALS['CM_MASTER'] ?$GLOBALS['CM_MASTER']['id'] : '') ?>"
         },
         perProduct: 0,
         timeout: null
