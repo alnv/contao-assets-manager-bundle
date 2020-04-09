@@ -7,15 +7,17 @@
         cartActive: false,
         cartClickTrigger: false,
         alert: {
+            type: null,
             component: null,
             message: null,
-            type: null,
             active: false
         },
         shared: {
             units: 1,
-            item: "<?= ($GLOBALS['CM_MASTER'] ?$GLOBALS['CM_MASTER']['id'] : '') ?>"
+            item: "<?= ($GLOBALS['CM_MASTER'] ? $GLOBALS['CM_MASTER']['id'] : '') ?>"
         },
+        modal: null,
+        _modal: null,
         perProduct: 0,
         timeout: null
     };
@@ -26,7 +28,7 @@
                 return window.VueData;
             },
             methods: {
-                onChange: function ( component ) {
+                onChange: function (component) {
                     for ( var i = 0; i < window.VueInstances.length; i++ ) {
                         if ( !window.VueInstances[i].$children.length ) {
                             continue;
@@ -36,7 +38,7 @@
                                 continue;
                             }
                             if ( typeof window.VueInstances[i].$children[j].onChange !== 'undefined' ) {
-                                window.VueInstances[i].$children[j].onChange( this.shared );
+                                window.VueInstances[i].$children[j].onChange(this.shared,component);
                             }
                         }
                     }
