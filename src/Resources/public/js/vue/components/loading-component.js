@@ -29,9 +29,6 @@ const LoadingComponent = Vue.component( 'loading', {
             }
         }
     },
-    methods: {},
-    mounted: function () {},
-    props: {},
     template:
         '<div class="loading-component">' +
             '<slot>' +

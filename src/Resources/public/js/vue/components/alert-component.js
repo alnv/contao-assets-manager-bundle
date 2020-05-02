@@ -1,4 +1,4 @@
-const AlertComponent = Vue.component( 'alert', {
+const AlertComponent = Vue.component('alert', {
     data: function () {
         return {
             timeoutId: null,
@@ -9,11 +9,11 @@ const AlertComponent = Vue.component( 'alert', {
         getCssClasses: function () {
             var objClass = {};
             objClass['active'] = this.alert.active;
-            if ( this.alert.type ) {
-                objClass[ this.alert.type ] = this.alert.type
+            if (this.alert.type) {
+                objClass[this.alert.type] = this.alert.type
             }
             if ( this.alert.component ) {
-                objClass[ this.alert.component ] = this.alert.component
+                objClass[this.alert.component] = this.alert.component
             }
             return objClass;
         },
