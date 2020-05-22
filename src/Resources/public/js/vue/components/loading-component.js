@@ -4,33 +4,36 @@ const LoadingComponent = Vue.component( 'loading', {
             mainStyles: {
                 background: '#000',
                 animation: 'loading 1s infinite ease-in-out',
-                width: '1em',
-                height: '1em'
+                width: '.75em',
+                height: '24px'
             },
             loaderStyles: {
                 color: '#000',
-                margin: '30px auto',
+                margin: '15px auto',
                 position: 'relative',
-                fontSize: '11px',
+                fontSize: '10px',
                 transform: 'translateZ(0)',
                 animationDelay: '-0.16s'
             },
             innerStyles: {
                 position: 'absolute',
-                top: 0,
-                content: ''
+                content: '',
+                top: 0
             },
             beforeStyles: {
-                left: '-1.5em',
+                left: '-1.125em',
                 animationDelay: '-0.32s'
             },
             afterStyles: {
-                left: '1.5em'
+                left: '1.125em'
+            },
+            minHeight: {
+                minHeight: '5rem'
             }
         }
     },
     template:
-        '<div class="loading-component">' +
+        '<div class="loading-component" v-bind:style="[minHeight]">' +
             '<slot>' +
                 '<div v-bind:style="[mainStyles, loaderStyles]">' +
                     '<span v-bind:style="[mainStyles, innerStyles, beforeStyles]"></span>'+
