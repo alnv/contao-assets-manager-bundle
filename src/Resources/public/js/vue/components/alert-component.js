@@ -33,7 +33,7 @@ const AlertComponent = Vue.component('alert', {
                     this.timeoutId = setTimeout(function () {
                         this.$parent.clearAlert();
                         this.timeoutId = null;
-                    }.bind(this),1000)
+                    }.bind(this),3000)
                 }
             },
             deep: true
