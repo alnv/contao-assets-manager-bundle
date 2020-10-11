@@ -29,15 +29,15 @@
             },
             methods: {
                 onChange: function (component) {
-                    for ( var i = 0; i < window.VueInstances.length; i++ ) {
-                        if ( !window.VueInstances[i].$children.length ) {
+                    for (var i = 0; i < window.VueInstances.length; i++) {
+                        if (!window.VueInstances[i].$children.length) {
                             continue;
                         }
-                        for ( var j = 0; j < window.VueInstances[i].$children.length; j++ ) {
-                            if ( component && component.$vnode.tag === window.VueInstances[i].$children[j].$vnode.tag ) {
+                        for (var j = 0; j < window.VueInstances[i].$children.length; j++) {
+                            if (component && component.$vnode.tag === window.VueInstances[i].$children[j].$vnode.tag) {
                                 continue;
                             }
-                            if ( typeof window.VueInstances[i].$children[j].onChange !== 'undefined' ) {
+                            if (typeof window.VueInstances[i].$children[j].onChange !== 'undefined') {
                                 window.VueInstances[i].$children[j].onChange(this.shared,component);
                             }
                         }
@@ -66,22 +66,22 @@
                 this.$el.classList.add('loaded');
             }
         });
-        window.VueInstances.push( objVue );
+        window.VueInstances.push(objVue);
     };
-    document.addEventListener( 'DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var objVueScript = document.createElement('script');
         objVueScript.id = 'js_assetsmanager';
         objVueScript.async = true;
         objVueScript.onload = function () {
             var arrVuesDocuments = document.querySelectorAll('.v-component');
-            if ( !arrVuesDocuments.length ) {
+            if (!arrVuesDocuments.length) {
                 return null;
             }
-            for ( var i = 0; i < arrVuesDocuments.length; i++ ) {
+            for (var i = 0; i < arrVuesDocuments.length; i++) {
                 window.addVueInstance(arrVuesDocuments[i]);
             }
         };
         objVueScript.src = '<?= $objAssetsManager->getCombinedAssets() ?>';
-        document.head.appendChild( objVueScript );
+        document.head.appendChild(objVueScript);
     });
 </script>
