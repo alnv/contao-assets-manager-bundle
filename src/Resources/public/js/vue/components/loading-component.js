@@ -3,7 +3,7 @@ const LoadingComponent = Vue.component( 'loading', {
         return {
             mainStyles: {
                 background: '#000',
-                animation: 'loading 1s infinite ease-in-out',
+                animation: 'loading 1.2s infinite ease-in-out',
                 width: '.75em',
                 height: '24px'
             },
