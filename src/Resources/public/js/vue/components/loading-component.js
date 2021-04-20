@@ -1,4 +1,4 @@
-const LoadingComponent = Vue.component( 'loading', {
+const LoadingComponent = Vue.component('loading', {
     data: function () {
         return {
             mainStyles: {
