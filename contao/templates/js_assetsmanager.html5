@@ -1,5 +1,6 @@
 <?php $GLOBALS['TL_CSS']['v-component'] = 'bundles/alnvcontaoassetsmanager/css/v-component.scss|static'; ?>
 <?php $objAssetsManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance(); ?>
+
 <script defer>
     window.VueInstances = [];
     window.VueData = {
@@ -21,41 +22,41 @@
         perProduct: 0,
         timeout: null
     };
-    window.addVueInstance = function(vueComponent) {
-        var objVue = new Vue({
+    window.addVueInstance = function (vueComponent) {
+        let objVue = new Vue({
             el: vueComponent,
             data: function () {
                 return window.VueData;
             },
             methods: {
                 onChange: function (component) {
-                    for (var i = 0; i < window.VueInstances.length; i++) {
+                    for (let i = 0; i < window.VueInstances.length; i++) {
                         if (!window.VueInstances[i].$children.length) {
                             continue;
                         }
-                        for (var j = 0; j < window.VueInstances[i].$children.length; j++) {
+                        for (let j = 0; j < window.VueInstances[i].$children.length; j++) {
                             if (component && component.$vnode.tag === window.VueInstances[i].$children[j].$vnode.tag) {
                                 continue;
                             }
                             if (typeof window.VueInstances[i].$children[j].onChange !== 'undefined') {
-                                window.VueInstances[i].$children[j].onChange(this.shared,component);
+                                window.VueInstances[i].$children[j].onChange(this.shared, component);
                             }
                         }
                     }
                 },
-                setLoadingAlert: function(message,component) {
+                setLoadingAlert: function (message, component) {
                     this.alert.active = true;
                     this.alert.type = 'loading';
                     this.alert.component = component ? component.$vnode.tag : null;
                     this.alert.message = message ? message : 'Bitte warten';
                 },
-                setErrorAlert: function(message,component) {
+                setErrorAlert: function (message, component) {
                     this.alert.active = true;
                     this.alert.type = 'error';
                     this.alert.component = component ? component.$vnode.tag : null;
                     this.alert.message = message ? message : 'Es ist ein Fehler aufgetreten';
                 },
-                clearAlert: function() {
+                clearAlert: function () {
                     this.alert.type = null;
                     this.alert.message = '';
                     this.alert.active = false;
@@ -68,16 +69,16 @@
         });
         window.VueInstances.push(objVue);
     };
-    document.addEventListener('DOMContentLoaded', function() {
-        var objVueScript = document.createElement('script');
+    document.addEventListener('DOMContentLoaded', function () {
+        let objVueScript = document.createElement('script');
         objVueScript.id = 'js_assetsmanager';
         objVueScript.async = true;
         objVueScript.onload = function () {
-            var arrVuesDocuments = document.querySelectorAll('.v-component');
+            let arrVuesDocuments = document.querySelectorAll('.v-component');
             if (!arrVuesDocuments.length) {
                 return null;
             }
-            for (var i = 0; i < arrVuesDocuments.length; i++) {
+            for (let i = 0; i < arrVuesDocuments.length; i++) {
                 window.addVueInstance(arrVuesDocuments[i]);
             }
         };

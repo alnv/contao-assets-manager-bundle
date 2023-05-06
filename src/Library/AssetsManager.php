@@ -2,12 +2,17 @@
 
 namespace Alnv\ContaoAssetsManagerBundle\Library;
 
-class AssetsManager extends \Combiner {
+use Contao\Combiner;
+
+class AssetsManager extends Combiner
+{
 
     protected static $arrManager = [];
+    
     protected static $objInstance = null;
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
 
         if (null === self::$objInstance) {
             self::$objInstance = new self;
@@ -16,7 +21,8 @@ class AssetsManager extends \Combiner {
         return self::$objInstance;
     }
 
-    public function addIfNotExist($strFile) {
+    public function addIfNotExist($strFile)
+    {
 
         $arrFiles = explode('/', $strFile);
         $strFilename = end($arrFiles);
@@ -26,7 +32,8 @@ class AssetsManager extends \Combiner {
         }
     }
 
-    public function removeFile($strFile) {
+    public function removeFile($strFile)
+    {
 
         $arrFiles = explode('/', $strFile);
         $strFilename = end($arrFiles);
@@ -35,10 +42,11 @@ class AssetsManager extends \Combiner {
         }
     }
 
-    public function getCombinedAssets($strUrl = null, $strVersion = null, $strMedia = 'screen') {
+    public function getCombinedAssets($strUrl = null, $strVersion = null, $strMedia = 'screen')
+    {
 
-        $this->addMultiple( self::$arrManager, $strVersion, $strMedia );
+        $this->addMultiple(self::$arrManager, $strVersion, $strMedia);
 
-        return $this->getCombinedFileUrl( $strUrl );
+        return $this->getCombinedFileUrl($strUrl);
     }
 }
